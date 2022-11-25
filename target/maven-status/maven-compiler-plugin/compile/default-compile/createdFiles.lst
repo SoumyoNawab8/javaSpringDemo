@@ -1,0 +1,5 @@
+com\example\demo\services\UserService.class
+com\example\demo\DemoApplication.class
+com\example\demo\routes\UserRoutes.class
+com\example\demo\model\UserModel.class
+com\example\demo\repository\UserRepository.class
