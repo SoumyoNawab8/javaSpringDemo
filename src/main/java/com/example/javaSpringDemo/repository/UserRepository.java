@@ -1,11 +1,11 @@
-package com.example.demo.repository;
+package com.example.javaSpringDemo.repository;
 
 // import java.util.List;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 // import org.springframework.data.mongodb.repository.Query;
 
-import com.example.demo.model.UserModel;
+import com.example.javaSpringDemo.model.UserModel;
 
 public interface UserRepository extends MongoRepository<UserModel, String> {
     

@@ -1,4 +1,4 @@
-package com.example.demo.services;
+package com.example.javaSpringDemo.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -6,8 +6,8 @@ import java.util.ArrayList;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
-import com.example.demo.model.UserModel;
-import com.example.demo.repository.UserRepository;
+import com.example.javaSpringDemo.model.UserModel;
+import com.example.javaSpringDemo.repository.UserRepository;
 
 @Service
 public class UserService {
@@ -57,5 +57,7 @@ public class UserService {
             return false;
         }
     }
+
+    // publ
 
 }

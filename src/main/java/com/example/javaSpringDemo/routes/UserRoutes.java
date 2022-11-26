@@ -1,4 +1,4 @@
-package com.example.demo.routes;
+package com.example.javaSpringDemo.routes;
 
 import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -6,15 +6,14 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.bson.Document;
 
-import com.example.demo.model.UserModel;
-import com.example.demo.services.UserService;
+import com.example.javaSpringDemo.model.UserModel;
+import com.example.javaSpringDemo.services.UserService;
 
 @RestController
 @RequestMapping("/api/users")
@@ -30,7 +29,7 @@ public class UserRoutes {
         this.service = service;
     }
 
-    @RequestMapping("/")
+    @RequestMapping("")
     @ResponseBody
     // Method
     public ArrayList getUsers() {
@@ -44,6 +43,24 @@ public class UserRoutes {
             throw e;
         }
 
+    }
+
+    @RequestMapping("/{id}")
+    @ResponseBody
+    public Document findUser(@PathVariable String id) {
+        try {
+            if(service.delete(id)==true){
+                return Document.parse(new Document("message", "success").toJson());
+
+            }
+            else{
+            return Document.parse(new Document("message", "failed").toJson());
+
+            }
+        } catch (Exception e) {
+            LOGGER.error(e);
+            throw e;
+        }
     }
 
     @DeleteMapping("/{id}")
