@@ -1,5 +1,8 @@
 package com.example.javaSpringDemo.model;
 
+import java.time.LocalTime;
+import java.time.ZoneId;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -8,15 +11,16 @@ public class UserModel {
 
 		@Id
 		private String id;
-
+		private LocalTime dateOfJoining;
 		private String name;
-		private String dateOfJoining;
+		private LocalTime lastUpdateTime;
 		
-		public UserModel(String id, String name, String dateOfJoining) {
+		public UserModel(String id, String name, LocalTime dateOfJoining,LocalTime lastUpdateTime) {
 			super();
 			this.id = id;
 			this.name = name;
 			this.dateOfJoining = dateOfJoining;
+			this.lastUpdateTime = lastUpdateTime;
 		}
 
 		public String getId() {
@@ -35,12 +39,20 @@ public class UserModel {
 			this.name = name;
 		}
 
-				public String getDateOfJoining() {
+		public LocalTime getDateOfJoining() {
 			return dateOfJoining;
 		}
 
-		public void setDateOfJoining(String date) {
-			this.dateOfJoining = dateOfJoining;
+		public void setDateOfJoining() {
+			this.dateOfJoining = LocalTime.now(ZoneId.of("GMT+05:30"));
+		}
+
+		public LocalTime getLastUpdateTime() {
+			return lastUpdateTime;
+		}
+
+		public void setLastUpdateTime(){
+			this.lastUpdateTime = LocalTime.now(ZoneId.of("GMT+05:30"));
 		}
 
 }

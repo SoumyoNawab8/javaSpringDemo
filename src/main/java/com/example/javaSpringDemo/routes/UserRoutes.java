@@ -3,6 +3,8 @@ package com.example.javaSpringDemo.routes;
 import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,14 +31,11 @@ public class UserRoutes {
         this.service = service;
     }
 
-    @RequestMapping("")
+    @GetMapping("")
     @ResponseBody
     // Method
     public ArrayList getUsers() {
         try {
-            LOGGER.info(
-                    "Userssssssssssssss>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-
             return service.findAllUsers();
         } catch (Exception e) {
             LOGGER.error(e);
@@ -45,22 +44,20 @@ public class UserRoutes {
 
     }
 
-    @RequestMapping("/{id}")
+    @GetMapping("/{id}")
     @ResponseBody
-    public Document findUser(@PathVariable String id) {
+    public UserModel findUser(@PathVariable String id) {
         try {
-            if(service.delete(id)==true){
-                return Document.parse(new Document("message", "success").toJson());
-
-            }
-            else{
-            return Document.parse(new Document("message", "failed").toJson());
+            UserModel result = service.findUser(id);
+            if(true){
+                return result;
 
             }
         } catch (Exception e) {
             LOGGER.error(e);
             throw e;
         }
+        return null;
     }
 
     @DeleteMapping("/{id}")
@@ -96,7 +93,25 @@ public class UserRoutes {
         } catch (Exception e) {
             LOGGER.error(e);
             throw e;
-            // TODO: handle exception
+        }
+    }
+
+    @PatchMapping("/{id}")
+    @ResponseBody
+    public Document updateUser(@PathVariable String id,UserModel userMdl){
+        LOGGER.info("My ID>>>>>>>>>>>"+id);
+        try {
+            if(service.updateUser(id,userMdl)==true){
+                return Document.parse(new Document("message", "success").toJson());
+
+            }
+            else{
+            return Document.parse(new Document("message", "failed").toJson());
+
+            }
+        } catch (Exception e) {
+            LOGGER.error(e);
+            throw e;
         }
     }
 }
