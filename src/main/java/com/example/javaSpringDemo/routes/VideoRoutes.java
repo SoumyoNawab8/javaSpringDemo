@@ -1,5 +1,6 @@
 package com.example.javaSpringDemo.routes;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -7,6 +8,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.example.javaSpringDemo.services.VideoService;
+
+import java.io.File;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -14,6 +20,9 @@ import org.apache.logging.log4j.Logger;
 @RequestMapping("/api/videos")
 public class VideoRoutes {
 
+    
+    @Autowired
+    private VideoService service;
     private static final Logger LOGGER = LogManager.getLogger(VideoRoutes.class);
 
 
@@ -32,10 +41,16 @@ public Boolean getVideos(){
 
 @PostMapping("")
 @ResponseBody
-public Boolean uploadVideo(@RequestParam("file") MultipartFile multipartFile){
+public String uploadVideo(@RequestParam("file") MultipartFile multipartFile){
     try {
+        LOGGER.info("^^^^^^^^ Uploading video");
+        String result = service.uploadFile(multipartFile);
+        LOGGER.info("result of uploadVideo");
+        LOGGER.info(result);
+
+        
         // TODO: handle file upload with firebase cloud storage
-        return true;
+        return result;
     } catch (Exception e) {
 
         // TODO: handle exception
